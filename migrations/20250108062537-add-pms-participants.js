@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('pms_participants', {
+    await queryInterface.createTable("pms_participants", {
       id: {
         type: Sequelize.UUID,
-        defaultValue: Sequelize.literal('uuid_generate_v4()'),
+        defaultValue: Sequelize.literal("uuid_generate_v4()"),
         allowNull: false,
         primaryKey: true,
       },
@@ -13,21 +13,15 @@ module.exports = {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: 'pms_cycles', 
-          key: 'id',          
+          model: "pms_cycles",
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       employee_id: {
-        type: Sequelize.UUID,
-        allowNull: false,
-        references: {
-          model: 'employees', 
-          key: 'id',         
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        type: Sequelize.STRING(255),
+        allowNull: true,
       },
       custom: {
         type: Sequelize.JSONB,
@@ -47,6 +41,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('pms_participants');
+    await queryInterface.dropTable("pms_participants");
   },
 };

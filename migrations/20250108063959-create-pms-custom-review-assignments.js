@@ -1,35 +1,30 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('pms_custom_review_assignments', {
+    await queryInterface.createTable("pms_custom_review_assignments", {
       id: {
         type: Sequelize.UUID,
         primaryKey: true,
-        defaultValue: Sequelize.UUIDV4, 
+        defaultValue: Sequelize.UUIDV4,
       },
       review_type_id: {
         type: Sequelize.UUID,
         references: {
-          model: 'pms_review_types', 
-          key: 'id',
+          model: "pms_review_types",
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       employee_id: {
-        type: Sequelize.UUID,
-        references: {
-          model: 'employees', 
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
+        type: Sequelize.STRING(255),
+        allowNull: true,
       },
       reference_field: {
         type: Sequelize.ENUM,
-        values: ['reporting_manager', 'HRBP'],
-        allowNull: true, 
+        values: ["reporting_manager", "HRBP"],
+        allowNull: true,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -45,6 +40,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('pms_custom_review_assignments');
+    await queryInterface.dropTable("pms_custom_review_assignments");
   },
 };
