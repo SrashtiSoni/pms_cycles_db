@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         allowNull: false,
       },
-      title: {
+      name: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
@@ -25,6 +25,19 @@ module.exports = {
         type: Sequelize.UUID,
         allowNull: false,
       },
+      cycle_applicable_to: {
+        type: Sequelize.ENUM("all", "custom"),
+        allowNull: false,
+        defaultValue: "all",
+      },
+      // custom_cycle_applicable_to: {
+      //   type: Sequelize.UUID,
+      //   allowNull: true,
+      //   references: {
+      //     model: "pms_custom_cycles",
+      //     key: "id",
+      //   },
+      // },
       created_at: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
@@ -68,5 +81,8 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable("pms_cycles");
+    await queryInterface.sequelize.query(
+      `DROP TYPE IF EXISTS "enum_pms_cycles_cycle_applicable_to";`
+    );
   },
 };
