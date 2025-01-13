@@ -17,6 +17,11 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
       },
+      is_draft: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+      },
       access_settings: {
         type: Sequelize.JSONB,
         allowNull: true,

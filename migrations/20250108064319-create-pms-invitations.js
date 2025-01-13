@@ -11,7 +11,7 @@ module.exports = {
       cycle_id: {
         type: Sequelize.UUID,
         references: {
-          model: "pms_cycles", 
+          model: "pms_cycles",
           key: "id",
         },
         onUpdate: "CASCADE",
@@ -33,6 +33,11 @@ module.exports = {
       email_message: {
         type: Sequelize.TEXT,
         allowNull: false,
+      },
+      is_draft: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
       },
       created_at: {
         type: Sequelize.DATE,

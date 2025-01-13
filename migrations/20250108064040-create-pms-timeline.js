@@ -34,6 +34,11 @@ module.exports = {
         type: Sequelize.DATEONLY,
         allowNull: false,
       },
+      is_draft: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

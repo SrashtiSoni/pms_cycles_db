@@ -34,6 +34,11 @@ module.exports = {
           key: "id",
         },
       },
+      is_draft: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+      },
       number_of_reminders: {
         type: Sequelize.INTEGER,
         allowNull: false,
