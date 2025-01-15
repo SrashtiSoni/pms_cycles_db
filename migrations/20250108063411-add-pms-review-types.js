@@ -19,15 +19,26 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      name: {
-        type: Sequelize.STRING(255),
+      type: {
+        type: Sequelize.ENUM(
+          "MANAGER",
+          "SELF",
+          "PEER",
+          "DIRECT_REPORTS",
+          "CUSTOM"
+        ),
         allowNull: false,
+      },
+      custom_name: {
+        type: Sequelize.STRING(255),
+        allowNull: true,
       },
       is_custom: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
       },
+
       is_draft: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
@@ -48,5 +59,8 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("pms_review_types");
+    await queryInterface.sequelize.query(
+      'DROP TYPE IF EXISTS "enum_pms_review_types_type"'
+    );
   },
 };

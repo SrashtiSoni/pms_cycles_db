@@ -17,22 +17,13 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      review_type_id: {
-        type: Sequelize.UUID,
-        references: {
-          model: "pms_review_types",
-          key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
+      review_type: {
+        type: Sequelize.ENUM("SELF", "MANAGER"),
+        allowNull: false,
       },
-      reviewer_id: {
-        type: Sequelize.UUID,
-        allowNull: true,
-        references: {
-          model: "users",
-          key: "id",
-        },
+      reminder_message_type: {
+        type: Sequelize.ENUM("default", "custom"),
+        allowNull: false,
       },
       is_draft: {
         type: Sequelize.BOOLEAN,
@@ -43,10 +34,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0,
-      },
-      reminder_message: {
-        type: Sequelize.JSONB,
-        allowNull: false,
       },
       subject_template: {
         type: Sequelize.STRING(255),
@@ -59,10 +46,6 @@ module.exports = {
       placeholders: {
         type: Sequelize.JSONB,
         allowNull: true,
-      },
-      days_left: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,
