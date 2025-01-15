@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('pms_review_forms', {
+    await queryInterface.createTable("pms_review_forms", {
       id: {
         type: Sequelize.UUID,
         primaryKey: true,
@@ -11,20 +11,15 @@ module.exports = {
       review_type_id: {
         type: Sequelize.UUID,
         references: {
-          model: 'pms_review_types', 
-          key: 'id',
+          model: "pms_review_types",
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       form_template: {
-        type: Sequelize.TEXT, 
-        allowNull: true, 
-      },
-      is_draft: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: true,
+        type: Sequelize.TEXT,
+        allowNull: true,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -40,6 +35,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('pms_review_forms');
+    await queryInterface.dropTable("pms_review_forms");
   },
 };

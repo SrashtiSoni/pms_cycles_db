@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('pms_settings', {
+    await queryInterface.createTable("pms_settings", {
       id: {
         type: Sequelize.UUID,
         primaryKey: true,
@@ -11,16 +11,11 @@ module.exports = {
       cycle_id: {
         type: Sequelize.UUID,
         references: {
-          model: 'pms_cycles', 
-          key: 'id',
+          model: "pms_cycles",
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-      },
-      is_draft: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: true,
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       access_settings: {
         type: Sequelize.JSONB,
@@ -52,6 +47,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('pms_settings');
+    await queryInterface.dropTable("pms_settings");
   },
 };
