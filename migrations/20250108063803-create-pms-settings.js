@@ -11,15 +11,33 @@ module.exports = {
       cycle_id: {
         type: Sequelize.UUID,
         references: {
-          model: "pms_cycles",
-          key: "id",
+          model: 'pms_cycles',
+          key: 'id',
         },
-        onUpdate: "CASCADE",
-        onDelete: "SET NULL",
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      review_type_cycle_id: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'pms_review_types', 
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
+      is_draft: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
       },
       access_settings: {
         type: Sequelize.JSONB,
         allowNull: true,
+      },
+      invite_settings:{
+        type:Sequelize.JSONB,
+        allowNull:true
       },
       notification_settings: {
         type: Sequelize.JSONB,

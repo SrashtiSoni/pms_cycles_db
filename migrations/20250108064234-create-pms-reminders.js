@@ -17,12 +17,17 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      review_type: {
-        type: Sequelize.ENUM("SELF", "MANAGER"),
-        allowNull: false,
+      review_type_id: {
+        type: Sequelize.UUID,
+        references: {
+          model: "pms_review_types",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
-      reminder_message_type: {
-        type: Sequelize.ENUM("default", "custom"),
+      is_draft: {
+        type: Sequelize.BOOLEAN,
         allowNull: false,
       },
       number_of_reminders: {

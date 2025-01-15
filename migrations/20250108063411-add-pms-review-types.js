@@ -38,6 +38,19 @@ module.exports = {
         allowNull: false,
         defaultValue: false,
       },
+      start_date: {
+        type: Sequelize.DATEONLY, 
+        allowNull: false,
+      },
+      due_date: {
+        type: Sequelize.DATEONLY,
+        allowNull: false,
+      },
+      is_draft: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+      },
       created_at: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
