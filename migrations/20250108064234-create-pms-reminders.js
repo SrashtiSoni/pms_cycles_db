@@ -30,6 +30,10 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
+      reminder_type: {
+        type: Sequelize.BOOLEAN,
+        defaultValue:true,
+      },
       number_of_reminders: {
         type: Sequelize.INTEGER,
         allowNull: false,
