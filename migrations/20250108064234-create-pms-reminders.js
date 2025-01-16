@@ -31,8 +31,11 @@ module.exports = {
         allowNull: false,
       },
       reminder_type: {
-        type: Sequelize.BOOLEAN,
-        defaultValue:true,
+        type: Sequelize.ENUM(
+          'DEFAULT', 'CUSTOM'
+        ),
+        defaultValue:"DEFAULT",
+        allowNull: false,
       },
       number_of_reminders: {
         type: Sequelize.INTEGER,
