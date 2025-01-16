@@ -30,6 +30,11 @@ module.exports = {
         allowNull: false,
         defaultValue: "all",
       },
+      status: {
+        type: Sequelize.ENUM("running", "pending", "stopped", "ended"),
+        allowNull: false,
+        defaultValue: "pending",
+      },
       is_draft: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
@@ -90,6 +95,9 @@ module.exports = {
     await queryInterface.dropTable("pms_cycles");
     await queryInterface.sequelize.query(
       `DROP TYPE IF EXISTS "enum_pms_cycles_cycle_applicable_to";`
+    );
+    await queryInterface.sequelize.query(
+      `DROP TYPE IF EXISTS "enum_pms_cycles_status";`
     );
   },
 };
