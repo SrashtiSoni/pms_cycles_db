@@ -40,11 +40,11 @@ module.exports = {
       },
       start_date: {
         type: Sequelize.DATEONLY, 
-        allowNull: false,
+        allowNull: true,
       },
       due_date: {
         type: Sequelize.DATEONLY,
-        allowNull: false,
+        allowNull: true,
       },
       is_draft: {
         type: Sequelize.BOOLEAN,

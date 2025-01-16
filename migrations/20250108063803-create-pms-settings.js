@@ -6,7 +6,7 @@ module.exports = {
       id: {
         type: Sequelize.UUID,
         primaryKey: true,
-        defaultValue: Sequelize.UUIDV4,
+        defaultValue: Sequelize.literal("uuid_generate_v4()"),
       },
       cycle_id: {
         type: Sequelize.UUID,
@@ -18,7 +18,7 @@ module.exports = {
         onDelete: 'CASCADE',
         allowNull:true
       },
-      review_type_id: {
+      review_type_cycle_id: {
         type: Sequelize.UUID,
         references: {
           model: 'pms_review_types', 
