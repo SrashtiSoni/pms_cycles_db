@@ -14,6 +14,7 @@ module.exports = {
           model: "pms_cycles",
           key: "id",
         },
+        allowNull: true,
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
@@ -42,17 +43,13 @@ module.exports = {
         allowNull: false,
         defaultValue: 0,
       },
-      subject_template: {
+      subject: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
-      message_template: {
-        type: Sequelize.TEXT,
+      message: {
+        type: Sequelize.STRING(255),
         allowNull: false,
-      },
-      placeholders: {
-        type: Sequelize.JSONB,
-        allowNull: true,
       },
       created_at: {
         type: Sequelize.DATE,
