@@ -39,11 +39,11 @@ module.exports = {
         defaultValue: false,
       },
       start_date: {
-        type: Sequelize.DATEONLY, 
+        type: Sequelize.DATE, 
         allowNull: true,
       },
       due_date: {
-        type: Sequelize.DATEONLY,
+        type: Sequelize.DATE,
         allowNull: true,
       },
       is_draft: {
