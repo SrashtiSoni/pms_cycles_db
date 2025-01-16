@@ -18,7 +18,7 @@ module.exports = {
         onDelete: 'CASCADE',
         allowNull:true
       },
-      review_type_cycle_id: {
+      review_type_id: {
         type: Sequelize.UUID,
         references: {
           model: 'pms_review_types', 
@@ -63,9 +63,18 @@ module.exports = {
         defaultValue: Sequelize.NOW,
       },
     });
+
+    await queryInterface.addConstraint("pms_settings", {
+      fields: ["review_type_id"],
+      type: "unique",
+      name: "unique_review_type_id", // Constraint name
+    });
+    
   },
 
   down: async (queryInterface, Sequelize) => {
+
+    await queryInterface.removeConstraint("pms_settings", "unique_review_type_id");
     await queryInterface.dropTable("pms_settings");
   },
 };
