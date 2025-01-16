@@ -30,7 +30,7 @@ module.exports = {
         type: Sequelize.DATEONLY,
         allowNull: false,
       },
-      due_date: {
+      end_date: {
         type: Sequelize.DATEONLY,
         allowNull: false,
       },

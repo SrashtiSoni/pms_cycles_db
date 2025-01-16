@@ -16,8 +16,9 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+        allowNull:true
       },
-      review_type_cycle_id: {
+      review_type_id: {
         type: Sequelize.UUID,
         references: {
           model: 'pms_review_types', 

@@ -8,16 +8,6 @@ module.exports = {
         primaryKey: true,
         defaultValue: Sequelize.UUIDV4,
       },
-      cycle_id: {
-        type: Sequelize.UUID,
-        references: {
-          model: "pms_cycles",
-          key: "id",
-        },
-        allowNull: true,
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-      },
       review_type_id: {
         type: Sequelize.UUID,
         references: {
