@@ -31,16 +31,27 @@ module.exports = {
         defaultValue: "all",
       },
       status: {
-        type: Sequelize.ENUM("running", "pending", "stopped", "ended"),
+        type: Sequelize.ENUM(
+          "running",
+          "pending",
+          "stopped",
+          "ended",
+          "archived"
+        ),
         allowNull: false,
         defaultValue: "pending",
+      },
+      progress: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        defaultValue: 0,
       },
       is_draft: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: true,
       },
-      use_cycle_dates_for_review_types:{
+      use_cycle_dates_for_review_types: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: true,

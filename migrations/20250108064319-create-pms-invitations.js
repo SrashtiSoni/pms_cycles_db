@@ -36,6 +36,11 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "SET NULL",
       },
+      status: {
+        type: Sequelize.ENUM("PENDING", "SENT"),
+        allowNull: false,
+        defaultValue: "PENDING",
+      },
       email_subject: {
         type: Sequelize.STRING(255),
         allowNull: false,
