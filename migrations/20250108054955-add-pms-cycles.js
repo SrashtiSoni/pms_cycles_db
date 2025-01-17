@@ -45,6 +45,14 @@ module.exports = {
         allowNull: false,
         defaultValue: true,
       },
+      planned_cycle_start_date:{
+         type: Sequelize.DATE,
+        allowNull: true,
+      },
+      planned_cycle_end_date:{
+         type: Sequelize.DATE,
+        allowNull: true,
+      },
        reviewers_can_submit_review_any_time_in_cycle:{
         type: Sequelize.BOOLEAN,
         allowNull: false,

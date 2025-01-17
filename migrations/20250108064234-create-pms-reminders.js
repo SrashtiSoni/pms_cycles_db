@@ -35,11 +35,11 @@ module.exports = {
       },
       subject: {
         type: Sequelize.STRING(255),
-        allowNull: false,
+        allowNull: true,
       },
       message: {
         type: Sequelize.STRING(255),
-        allowNull: false,
+        allowNull: true,
       },
       created_at: {
         type: Sequelize.DATE,
