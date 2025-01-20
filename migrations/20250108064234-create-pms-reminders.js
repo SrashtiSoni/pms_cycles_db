@@ -22,10 +22,8 @@ module.exports = {
         allowNull: true,
       },
       reminder_type: {
-        type: Sequelize.ENUM(
-          'DEFAULT', 'CUSTOM'
-        ),
-        defaultValue:"DEFAULT",
+        type: Sequelize.ENUM("DEFAULT", "CUSTOM"),
+        defaultValue: "DEFAULT",
         allowNull: false,
       },
       number_of_reminders: {
@@ -49,24 +47,23 @@ module.exports = {
       updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue:Sequelize.literal("CURRENT_TIMESTAMP"),
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
     };
-
-    
 
     await queryInterface.createTable("pms_reminders", columns);
     await queryInterface.addConstraint("pms_reminders", {
       fields: ["review_type_id"],
       type: "unique",
-      name: "unique_pms_reminders_review_type_id", // Constraint name
+      name: "unique_pms_reminders_review_type_id",
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeConstraint("pms_reminders", "unique_pms_reminders_review_type_id");
+    await queryInterface.removeConstraint(
+      "pms_reminders",
+      "unique_pms_reminders_review_type_id"
+    );
     await queryInterface.dropTable("pms_reminders");
-
-    
   },
 };
