@@ -79,6 +79,14 @@ module.exports = {
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         allowNull: false,
       },
+      owner_id: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
       created_by: {
         type: Sequelize.UUID,
         allowNull: false,
