@@ -162,6 +162,15 @@ module.exports = {
       allowNull: true, // e.g., "Worst"
       defaultValue:"Worst"
       },
+      scale_type_id:{
+        type:Sequelize.UUID,
+        allowNull:true,
+        references: {
+          model: 'layout_blocks',
+          key: 'id',
+        },
+        onDelete:"CASCADE"
+      },
       high_score_text: {
         type: Sequelize.STRING,
         allowNull: true, // e.g., "Best"
