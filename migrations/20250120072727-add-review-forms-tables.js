@@ -166,7 +166,7 @@ module.exports = {
         type:Sequelize.UUID,
         allowNull:true,
         references: {
-          model: 'layout_blocks',
+          model: 'scales',
           key: 'id',
         },
         onDelete:"CASCADE"
