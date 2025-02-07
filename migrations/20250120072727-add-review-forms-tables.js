@@ -63,7 +63,7 @@ module.exports = {
         onDelete: 'CASCADE',
       },
       type: {
-        type: Sequelize.ENUM("categories",'divider',),
+        type: Sequelize.ENUM("category",'divider',"page_break","text_box",),
         allowNull: false,
       },
       name: {
@@ -154,7 +154,7 @@ module.exports = {
         allowNull: false,
       },
       type: {
-        type: Sequelize.ENUM('scale', 'mcq', 'open', 'matrix', 'enps'),
+        type: Sequelize.ENUM('scale', 'mcq', 'open_answer', 'matrix', 'enps'),
         allowNull: false,
       },
       low_score_text: {
@@ -224,5 +224,9 @@ module.exports = {
     await queryInterface.dropTable('fields');
     await queryInterface.dropTable('layout_blocks');
     await queryInterface.dropTable('forms');
+    await queryInterface.sequelize.query('DROP TYPE IF EXISTS enum_layout_blocks_type CASCADE;');
+    await queryInterface.sequelize.query('DROP TYPE IF EXISTS enum_fields_type CASCADE;');
+
+
   },
 };
