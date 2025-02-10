@@ -2,6 +2,8 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    await queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
+    
     await queryInterface.createTable("pms_cycles", {
       id: {
         type: Sequelize.UUID,
