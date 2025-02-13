@@ -49,7 +49,7 @@ module.exports = {
       allowNull: false,
     },
     type: {
-      type: Sequelize.ENUM('open', 'mcq', 'scale'), // Response type per column
+      type: Sequelize.ENUM('open_answer', 'mcq', 'scale'), // Response type per column
       allowNull: false,
     },
     options: {
@@ -82,8 +82,11 @@ module.exports = {
     },
 
   down: async (queryInterface, Sequelize) => {
+
     await queryInterface.dropTable('matrix_rows');
     await queryInterface.dropTable('matrix_columns');
+    await queryInterface.sequelize.query('DROP TYPE IF EXISTS enum_matrix_columns_type CASCADE;');
+
   },
 };
 
