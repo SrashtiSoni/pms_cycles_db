@@ -2,8 +2,8 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.renameColumn("pms_invitations", "from", "inviter");
-    await queryInterface.addColumn("pms_invitations", "invitee", {
+    await queryInterface.renameColumn("pms_invitations", "from", "inviter_id");
+    await queryInterface.addColumn("pms_invitations", "invitee_id", {
       type: Sequelize.UUID,
       allowNull: false,
       references: {
@@ -30,9 +30,9 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn("pms_invitations", "invitee");
+    await queryInterface.removeColumn("pms_invitations", "invitee_id");
     await queryInterface.removeColumn("pms_invitations", "deleted_at");
     await queryInterface.removeColumn("pms_invitations", "deleted_by");
-    await queryInterface.renameColumn("pms_invitations", "inviter", "from");
+    await queryInterface.renameColumn("pms_invitations", "inviter_id", "from");
   },
 };
