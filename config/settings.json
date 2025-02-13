@@ -1,0 +1,109 @@
+{
+  "files.trimFinalNewlines": true,
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "editor.tabSize": 2,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "prettier.trailingComma": "es5",
+  "files.exclude": {
+    ".yarn": true,
+    "yarn.lock": true,
+    "pnpm-lock.yaml": true,
+    "package-lock.json": true,
+    "**/.cache": true,
+    "**/.next": true,
+    "**/build": true,
+    "**/coverage": true,
+    "**/dist": true,
+    "**/log": true,
+    "**/node_modules": true,
+    "**/v": true,
+    "**/venv": true,
+    ".serverless": true
+  },
+  "files.watcherExclude": {
+    ".yarn": true,
+    "yarn.lock": true,
+    "pnpm-lock.yaml": true,
+    "package-lock.json": true,
+    "**/.cache/**": true,
+    "**/.git/**": true,
+    "**/.gradle/**": true,
+    "**/.idea/**": true,
+    "**/.next/**": true,
+    "**/build/**": true,
+    "**/coverage/**": true,
+    "**/dist/**": true,
+    "**/log/**": true,
+    "**/node_modules/**": true,
+    "**/v/**": true,
+    "**/venv/**": true,
+    "**/.serverless/**": true
+  },
+  "search.exclude": {
+    ".yarn": true,
+    "yarn.lock": true,
+    "pnpm-lock.yaml": true,
+    "package-lock.json": true,
+    "**/.cache": true,
+    "**/.git": true,
+    "**/.gradle": true,
+    "**/.next": true,
+    "**/build": true,
+    "**/capacitor-cordova-android-plugins": true,
+    "**/coverage": true,
+    "**/dist": true,
+    "**/log": true,
+    "**/node_modules": true,
+    "**/v": true,
+    "**/venv": true,
+    ".serverless": true
+  },
+  "prettier.semi": false,
+  "prettier.bracketSameLine": true,
+  "eslint.format.enable": true,
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.quickSuggestions": {
+      "strings": true
+    }
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.quickSuggestions": {
+      "strings": true
+    }
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "todohighlight.keywords": [
+    {
+      "text": "NOTE:",
+      "color": "#333333",
+      "fontWeight": "semibold",
+      "backgroundColor": "yellow",
+      "overviewRulerColor": "grey"
+    },
+    {
+      "text": "HACK:",
+      "color": "#000",
+      "isWholeLine": false
+    }
+  ]
+}
