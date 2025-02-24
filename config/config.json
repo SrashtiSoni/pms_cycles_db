@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "monucarpenter",
-    "password": "12345",
+    "username": "zenadmin",
+    "password": "letmepass",
     "database": "zenadmin-development",
     "host": "127.0.0.1",
     "dialect": "postgres"
