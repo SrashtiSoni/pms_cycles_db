@@ -128,7 +128,7 @@ module.exports = {
         onDelete: "CASCADE",
       },
       value: {
-        type: Sequelize.STRING, // Store numeric, text, or MCQ values
+        type: Sequelize.JSONB, // Store numeric, text, or MCQ values
         allowNull: false,
       },
       created_at: {
