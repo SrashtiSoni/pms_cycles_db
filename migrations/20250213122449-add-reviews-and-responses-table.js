@@ -11,7 +11,6 @@ module.exports = {
         allowNull: false,
       },
       reviewer_id: {
-        // User giving the review
         type: Sequelize.UUID,
         allowNull: false,
         references: { model: "users", key: "id" },
@@ -49,7 +48,7 @@ module.exports = {
       },
       created_at: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("now()"),
+        defaultValue: Sequelize.literal("now()")
       },
     });
 
@@ -59,7 +58,7 @@ module.exports = {
       name: "unique_reviewer_reviewtype_reviewee",
     });
 
-    await queryInterface.createTable("pms_reviews_standard_field_responses", {
+    await queryInterface.createTable("pms_review_responses", {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal("gen_random_uuid()"),
@@ -91,28 +90,22 @@ module.exports = {
       },
     });
 
-    await queryInterface.addConstraint("pms_reviews_standard_field_responses", {
+    await queryInterface.addConstraint("pms_review_responses", {
       fields: ["review_id", "field_id"],
       type: "unique",
       name: "unique_review_field",
     });
 
-    await queryInterface.createTable("pms_reviews_matrix_responses", {
+    await queryInterface.createTable("pms_review_matrix_responses", {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal("gen_random_uuid()"),
         primaryKey: true,
       },
-      review_id: {
+      review_response_id: {
         type: Sequelize.UUID,
         allowNull: false,
-        references: { model: "pms_reviews", key: "id" },
-        onDelete: "CASCADE",
-      },
-      field_id: {
-        type: Sequelize.UUID,
-        allowNull: false,
-        references: { model: "fields", key: "id" },
+        references: { model: "pms_review_responses", key: "id" },
         onDelete: "CASCADE",
       },
       row_id: {
@@ -147,27 +140,27 @@ module.exports = {
       },
     });
 
-    await queryInterface.addConstraint("pms_reviews_matrix_responses", {
-      fields: ["review_id", "field_id", "row_id", "column_id"],
+    await queryInterface.addConstraint("pms_review_matrix_responses", {
+      fields: ["review_response_id", "row_id", "column_id"],
       type: "unique",
       name: "unique_matrix_response",
     });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.removeConstraint(
-      "pms_reviews_matrix_responses",
+      "pms_review_matrix_responses",
       "unique_matrix_response"
     );
     await queryInterface.removeConstraint(
-      "pms_reviews_standard_field_responses",
+      "pms_review_responses",
       "unique_review_field"
     );
     await queryInterface.removeConstraint(
       "pms_reviews",
       "unique_reviewer_reviewtype_reviewee"
     );
-    await queryInterface.dropTable("pms_reviews_standard_field_responses");
-    await queryInterface.dropTable("pms_reviews_matrix_responses");
+    await queryInterface.dropTable("pms_review_matrix_responses");
+    await queryInterface.dropTable("pms_review_responses");
     await queryInterface.dropTable("pms_reviews");
   },
 };
