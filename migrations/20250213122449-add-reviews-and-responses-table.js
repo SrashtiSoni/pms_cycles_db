@@ -48,7 +48,7 @@ module.exports = {
       },
       created_at: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("now()")
+        defaultValue: Sequelize.literal("now()"),
       },
     });
 
@@ -109,15 +109,15 @@ module.exports = {
         onDelete: "CASCADE",
       },
       row_id: {
-        type: Sequelize.UUID, // Maps to matrix_rows
+        type: Sequelize.UUID, // Now references fields table
         allowNull: false,
-        references: { model: "matrix_rows", key: "id" },
+        references: { model: "fields", key: "id" },
         onDelete: "CASCADE",
       },
       column_id: {
-        type: Sequelize.UUID, // Maps to matrix_columns
+        type: Sequelize.UUID, // Now references fields table
         allowNull: false,
-        references: { model: "matrix_columns", key: "id" },
+        references: { model: "fields", key: "id" },
         onDelete: "CASCADE",
       },
       value: {

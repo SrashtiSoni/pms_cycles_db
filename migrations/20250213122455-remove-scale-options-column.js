@@ -5,5 +5,10 @@ module.exports = {
     await queryInterface.removeColumn("scales", "options");
   },
 
-  down: async (queryInterface, Sequelize) => {},
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn("scales", "options", {
+      type: Sequelize.JSONB,
+      allowNull: true,
+    });
+  },
 };
