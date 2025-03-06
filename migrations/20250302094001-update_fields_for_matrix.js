@@ -1,16 +1,16 @@
 "use strict";
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    // Add 'matrix_row' and 'matrix_column' to the 'type' ENUM
-    await queryInterface.sequelize.query(`
-      ALTER TYPE "enum_fields_type" ADD VALUE IF NOT EXISTS 'matrix_row';
-    `);
-    await queryInterface.sequelize.query(`
-      ALTER TYPE "enum_fields_type" ADD VALUE IF NOT EXISTS 'matrix_column';
-    `);
+  async up(queryInterface, Sequelize) {
+    await queryInterface.changeColumn("fields", "type", {
+      type: Sequelize.ENUM("enps", "matrix", "mcq", "open_answer", "scale"),
+      allowNull: true, // Only changing this property
+    });
+    await queryInterface.addColumn("fields", "matrix_resource_type", {
+      type: Sequelize.ENUM("row", "column"),
+      allowNull: true, // NULL means it's not part of a matrix
+    });
 
-    // Add `parent_field_id` to link matrix rows/columns to a matrix field
     await queryInterface.addColumn("fields", "parent_field_id", {
       type: Sequelize.UUID,
       allowNull: true,
@@ -28,11 +28,22 @@ module.exports = {
     });
   },
 
-  down: async (queryInterface, Sequelize) => {
-    // Remove added columns
-    await queryInterface.removeColumn("fields", "parent_field_id");
-    await queryInterface.removeColumn("fields", "show_label_column");
+  async down(queryInterface, Sequelize) {
+    const tableInfo = await queryInterface.describeTable("fields");
 
-    // Note: ENUM values can't be removed in PostgreSQL easily, so we usually don't roll back ENUM changes.
+    if (tableInfo.parent_field_id) {
+      await queryInterface.removeColumn("fields", "parent_field_id");
+    }
+
+    if (tableInfo.show_label_column) {
+      await queryInterface.removeColumn("fields", "show_label_column");
+    }
+
+    if (tableInfo.matrix_resource_type) {
+      await queryInterface.removeColumn("fields", "matrix_resource_type");
+      await queryInterface.sequelize.query(
+        'DROP TYPE IF EXISTS "enum_fields_matrix_resource_type";'
+      );
+    }
   },
 };
