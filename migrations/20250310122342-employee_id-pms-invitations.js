@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.addColumn("pms_invitations", "employee_id", {
       type: Sequelize.UUID,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: "users",
         key: "id",
@@ -17,5 +17,5 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     await queryInterface.removeColumn("pms_invitations", "employee_id");
-  }
+  },
 };
