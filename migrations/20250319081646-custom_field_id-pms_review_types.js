@@ -15,7 +15,7 @@ module.exports = {
     });
   },
 
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     await queryInterface.removeColumn("pms_review_types", "custom_field_id");
   },
 };
