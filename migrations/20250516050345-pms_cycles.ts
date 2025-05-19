@@ -1,10 +1,12 @@
-import { DataTypes, QueryInterface } from 'sequelize';
+import { DataTypes, QueryInterface } from "sequelize";
 
-const tableName = 'pms_cycles';
+const tableName = "pms_cycles";
 
 module.exports = {
   async up(queryInterface: QueryInterface) {
-    await queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
+    await queryInterface.sequelize.query(
+      'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'
+    );
 
     await queryInterface.createTable(tableName, {
       id: {
@@ -30,14 +32,20 @@ module.exports = {
         allowNull: false,
       },
       cycle_applicable_to: {
-        type: DataTypes.ENUM('all', 'custom'),
+        type: DataTypes.ENUM("all", "custom"),
         allowNull: false,
-        defaultValue: 'all',
+        defaultValue: "all",
       },
       status: {
-        type: DataTypes.ENUM('running', 'pending', 'stopped', 'ended', 'archived'),
+        type: DataTypes.ENUM(
+          "running",
+          "pending",
+          "stopped",
+          "ended",
+          "archived"
+        ),
         allowNull: false,
-        defaultValue: 'pending',
+        defaultValue: "pending",
       },
       progress: {
         type: DataTypes.INTEGER,
@@ -71,24 +79,7 @@ module.exports = {
         allowNull: false,
         defaultValue: false,
       },
-      average_method: {
-        type: DataTypes.ENUM('SINGLE_QUESTION', 'QUESTIONS_AVERAGE'),
-        allowNull: true,
-      },
-      share_overall_rating_with_reviewee: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
-      rating_single_question_id: {
-        type: DataTypes.UUID,
-        allowNull: true,
-        references: {
-          model: 'fields',
-          key: 'id',
-        },
-        onDelete: 'SET NULL',
-      },
+
       show_goals: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
@@ -97,35 +88,35 @@ module.exports = {
       created_at: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: queryInterface.sequelize.literal('NOW()'),
+        defaultValue: queryInterface.sequelize.literal("NOW()"),
       },
       updated_at: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: queryInterface.sequelize.literal('NOW()'),
+        defaultValue: queryInterface.sequelize.literal("NOW()"),
       },
       owner_id: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: 'users',
-          key: 'id',
+          model: "users",
+          key: "id",
         },
       },
       created_by: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: 'users',
-          key: 'id',
+          model: "users",
+          key: "id",
         },
       },
       updated_by: {
         type: DataTypes.UUID,
         allowNull: true,
         references: {
-          model: 'users',
-          key: 'id',
+          model: "users",
+          key: "id",
         },
       },
       deleted_at: {
@@ -136,19 +127,19 @@ module.exports = {
         type: DataTypes.UUID,
         allowNull: true,
         references: {
-          model: 'users',
-          key: 'id',
+          model: "users",
+          key: "id",
         },
       },
       cycle_custom_policy_id: {
         type: DataTypes.UUID,
         allowNull: true,
         references: {
-          model: 'cycle_custom_policy',
-          key: 'id',
+          model: "cycle_custom_policy",
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
     });
   },
@@ -156,8 +147,14 @@ module.exports = {
   async down(queryInterface: QueryInterface) {
     await queryInterface.dropTable(tableName);
 
-    await queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_pms_cycles_cycle_applicable_to";');
-    await queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_pms_cycles_status";');
-    await queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_pms_cycles_average_method";');
+    await queryInterface.sequelize.query(
+      'DROP TYPE IF EXISTS "enum_pms_cycles_cycle_applicable_to";'
+    );
+    await queryInterface.sequelize.query(
+      'DROP TYPE IF EXISTS "enum_pms_cycles_status";'
+    );
+    await queryInterface.sequelize.query(
+      'DROP TYPE IF EXISTS "enum_pms_cycles_average_method";'
+    );
   },
 };
