@@ -131,16 +131,6 @@ module.exports = {
           key: "id",
         },
       },
-      cycle_custom_policy_id: {
-        type: DataTypes.UUID,
-        allowNull: true,
-        references: {
-          model: "cycle_custom_policy",
-          key: "id",
-        },
-        onUpdate: "CASCADE",
-        onDelete: "SET NULL",
-      },
     });
   },
 
