@@ -12,12 +12,26 @@ module.exports = {
       onDelete: "SET NULL",
       onUpdate: "CASCADE",
     });
+    await queryInterface.addColumn(
+      "pms_cycles",
+      "share_overall_rating_with_reviewee",
+      {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      }
+    );
   },
 
   async down(queryInterface: QueryInterface) {
     await queryInterface.removeColumn(
       "pms_cycles",
       "rating_single_question_id"
+    );
+
+    await queryInterface.removeColumn(
+      "pms_cycles",
+      "share_overall_rating_with_reviewee"
     );
   },
 };
