@@ -2,6 +2,10 @@ import { DataTypes, QueryInterface } from "sequelize";
 
 module.exports = {
   async up(queryInterface: QueryInterface) {
+    await queryInterface.addColumn("pms_cycles", "average_method", {
+      type: DataTypes.ENUM("SINGLE_QUESTION", "QUESTIONS_AVERAGE"),
+      allowNull: true,
+    });
     await queryInterface.addColumn("pms_cycles", "rating_single_question_id", {
       type: DataTypes.UUID,
       allowNull: true,
@@ -24,6 +28,8 @@ module.exports = {
   },
 
   async down(queryInterface: QueryInterface) {
+    await queryInterface.removeColumn("pms_cycles", "average_method");
+
     await queryInterface.removeColumn(
       "pms_cycles",
       "rating_single_question_id"
