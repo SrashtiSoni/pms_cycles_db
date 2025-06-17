@@ -19,9 +19,5 @@ module.exports = {
       "pms_cycles",
       "rating_single_question_id"
     );
-
-    await queryInterface.sequelize.query(
-      'DROP TYPE IF EXISTS "enum_pms_cycles_average_method";'
-    );
   },
 };
