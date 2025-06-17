@@ -1,17 +1,17 @@
-import { DataTypes, QueryInterface } from "sequelize";
+import { DataTypes, QueryInterface, Sequelize } from "sequelize";
 
 const tableName = "pms_custom_review_references";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface: QueryInterface) {
+  async up(queryInterface: QueryInterface, sequelize: Sequelize) {
     await queryInterface.sequelize.query(
       `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`
     );
     await queryInterface.createTable(tableName, {
       id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: sequelize.literal("uuid_generate_v4()"),
         allowNull: false,
         primaryKey: true,
       },

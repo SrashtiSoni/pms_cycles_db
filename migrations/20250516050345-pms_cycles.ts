@@ -1,9 +1,9 @@
-import { DataTypes, QueryInterface } from "sequelize";
+import { DataTypes, QueryInterface, Sequelize } from "sequelize";
 
 const tableName = "pms_cycles";
 
 module.exports = {
-  async up(queryInterface: QueryInterface) {
+  async up(queryInterface: QueryInterface,sequelize: Sequelize) {
     await queryInterface.sequelize.query(
       'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'
     );
@@ -13,7 +13,7 @@ module.exports = {
         type: DataTypes.UUID,
         allowNull: false,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: sequelize.literal("uuid_generate_v4()"),
       },
       name: {
         type: DataTypes.STRING(255),

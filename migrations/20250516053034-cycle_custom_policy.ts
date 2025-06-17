@@ -1,9 +1,9 @@
-import { DataTypes, QueryInterface } from "sequelize";
+import { DataTypes, QueryInterface, Sequelize } from "sequelize";
 
 const tableName = "cycle_custom_policy";
 
 module.exports = {
-  async up(queryInterface: QueryInterface) {
+  async up(queryInterface: QueryInterface, sequelize: Sequelize) {
     await queryInterface.sequelize.query(
       `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`
     );
