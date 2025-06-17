@@ -1,10 +1,13 @@
-import { DataTypes, QueryInterface } from 'sequelize';
+import { DataTypes, QueryInterface } from "sequelize";
 
-const tableName = 'pms_custom_review_references';
+const tableName = "pms_custom_review_references";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface: QueryInterface) {
+    await queryInterface.sequelize.query(
+      `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`
+    );
     await queryInterface.createTable(tableName, {
       id: {
         type: DataTypes.UUID,
@@ -16,11 +19,11 @@ module.exports = {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: 'pms_review_types',
-          key: 'id',
+          model: "pms_review_types",
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       reference_name: {
         type: DataTypes.STRING(255),
@@ -31,7 +34,7 @@ module.exports = {
         allowNull: true,
       },
       assign_reviewers: {
-        type: DataTypes.ENUM('BY_EMPLOYEE_REFERENCE', 'MANUALLY'),
+        type: DataTypes.ENUM("BY_EMPLOYEE_REFERENCE", "MANUALLY"),
         allowNull: false,
       },
       is_system_field: {

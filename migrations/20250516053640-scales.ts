@@ -1,13 +1,16 @@
-import { DataTypes, QueryInterface } from 'sequelize';
+import { DataTypes, QueryInterface } from "sequelize";
 
-const tableName = 'scales';
+const tableName = "scales";
 
 module.exports = {
   async up(queryInterface: QueryInterface) {
+    await queryInterface.sequelize.query(
+      `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`
+    );
     await queryInterface.createTable(tableName, {
       id: {
         type: DataTypes.UUID,
-        defaultValue: queryInterface.sequelize.literal('gen_random_uuid()'),
+        defaultValue: queryInterface.sequelize.literal("gen_random_uuid()"),
         primaryKey: true,
         allowNull: false,
       },
@@ -15,11 +18,11 @@ module.exports = {
         type: DataTypes.UUID,
         allowNull: true,
         references: {
-          model: 'companies',
-          key: 'id',
+          model: "companies",
+          key: "id",
         },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
       name: {
         type: DataTypes.STRING,
@@ -41,12 +44,12 @@ module.exports = {
       created_at: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: queryInterface.sequelize.fn('now'),
+        defaultValue: queryInterface.sequelize.fn("now"),
       },
       updated_at: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: queryInterface.sequelize.fn('now'),
+        defaultValue: queryInterface.sequelize.fn("now"),
       },
     });
   },

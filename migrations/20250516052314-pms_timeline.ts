@@ -1,10 +1,13 @@
-import { DataTypes, QueryInterface } from 'sequelize';
+import { DataTypes, QueryInterface } from "sequelize";
 
-const tableName = 'pms_timeline';
+const tableName = "pms_timeline";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface: QueryInterface) {
+    await queryInterface.sequelize.query(
+      `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`
+    );
     await queryInterface.createTable(tableName, {
       id: {
         type: DataTypes.UUID,
@@ -15,21 +18,21 @@ module.exports = {
         type: DataTypes.UUID,
         allowNull: true,
         references: {
-          model: 'pms_cycles',
-          key: 'id',
+          model: "pms_cycles",
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       review_type_id: {
         type: DataTypes.UUID,
         allowNull: true,
         references: {
-          model: 'pms_review_types',
-          key: 'id',
+          model: "pms_review_types",
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       start_date: {
         type: DataTypes.DATEONLY,

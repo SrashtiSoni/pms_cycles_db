@@ -1,14 +1,17 @@
-import { DataTypes, QueryInterface } from 'sequelize';
+import { DataTypes, QueryInterface } from "sequelize";
 
-const matrixRowsTable = 'matrix_rows';
-const matrixColumnsTable = 'matrix_columns';
+const matrixRowsTable = "matrix_rows";
+const matrixColumnsTable = "matrix_columns";
 
 module.exports = {
   async up(queryInterface: QueryInterface) {
+    await queryInterface.sequelize.query(
+      `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`
+    );
     await queryInterface.createTable(matrixRowsTable, {
       id: {
         type: DataTypes.UUID,
-        defaultValue: queryInterface.sequelize.literal('gen_random_uuid()'),
+        defaultValue: queryInterface.sequelize.literal("gen_random_uuid()"),
         primaryKey: true,
         allowNull: false,
       },
@@ -16,10 +19,10 @@ module.exports = {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: 'fields',
-          key: 'id',
+          model: "fields",
+          key: "id",
         },
-        onDelete: 'CASCADE',
+        onDelete: "CASCADE",
       },
       label: {
         type: DataTypes.TEXT,
@@ -39,7 +42,7 @@ module.exports = {
     await queryInterface.createTable(matrixColumnsTable, {
       id: {
         type: DataTypes.UUID,
-        defaultValue: queryInterface.sequelize.literal('gen_random_uuid()'),
+        defaultValue: queryInterface.sequelize.literal("gen_random_uuid()"),
         primaryKey: true,
         allowNull: false,
       },
@@ -47,17 +50,17 @@ module.exports = {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: 'fields',
-          key: 'id',
+          model: "fields",
+          key: "id",
         },
-        onDelete: 'CASCADE',
+        onDelete: "CASCADE",
       },
       label: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
       type: {
-        type: DataTypes.ENUM('open_answer', 'mcq', 'scale'),
+        type: DataTypes.ENUM("open_answer", "mcq", "scale"),
         allowNull: false,
       },
       options: {
@@ -73,10 +76,10 @@ module.exports = {
         type: DataTypes.UUID,
         allowNull: true,
         references: {
-          model: 'scales',
-          key: 'id',
+          model: "scales",
+          key: "id",
         },
-        onDelete: 'CASCADE',
+        onDelete: "CASCADE",
       },
       is_required: {
         type: DataTypes.BOOLEAN,
@@ -93,6 +96,8 @@ module.exports = {
   async down(queryInterface: QueryInterface) {
     await queryInterface.dropTable(matrixRowsTable);
     await queryInterface.dropTable(matrixColumnsTable);
-    await queryInterface.sequelize.query('DROP TYPE IF EXISTS enum_matrix_columns_type CASCADE;');
+    await queryInterface.sequelize.query(
+      "DROP TYPE IF EXISTS enum_matrix_columns_type CASCADE;"
+    );
   },
 };

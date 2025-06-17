@@ -1,13 +1,16 @@
-import { DataTypes, QueryInterface } from 'sequelize';
+import { DataTypes, QueryInterface } from "sequelize";
 
-const tableName = 'cycle_custom_policy';
+const tableName = "cycle_custom_policy";
 
 module.exports = {
   async up(queryInterface: QueryInterface) {
+    await queryInterface.sequelize.query(
+      `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`
+    );
     await queryInterface.createTable(tableName, {
       id: {
         type: DataTypes.UUID,
-        defaultValue: queryInterface.sequelize.literal('gen_random_uuid()'),
+        defaultValue: queryInterface.sequelize.literal("gen_random_uuid()"),
         primaryKey: true,
         allowNull: false,
       },
@@ -22,7 +25,7 @@ module.exports = {
       created_at: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: queryInterface.sequelize.literal('CURRENT_TIMESTAMP'),
+        defaultValue: queryInterface.sequelize.literal("CURRENT_TIMESTAMP"),
       },
       updated_by: {
         type: DataTypes.UUID,
@@ -31,7 +34,7 @@ module.exports = {
       updated_at: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: queryInterface.sequelize.literal('CURRENT_TIMESTAMP'),
+        defaultValue: queryInterface.sequelize.literal("CURRENT_TIMESTAMP"),
       },
       deleted_at: {
         type: DataTypes.DATE,

@@ -1,13 +1,16 @@
-import { DataTypes, QueryInterface } from 'sequelize';
+import { DataTypes, QueryInterface } from "sequelize";
 
-const tableName = 'cycle_employees';
+const tableName = "cycle_employees";
 
 module.exports = {
   async up(queryInterface: QueryInterface) {
+    await queryInterface.sequelize.query(
+      `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`
+    );
     await queryInterface.createTable(tableName, {
       id: {
         type: DataTypes.UUID,
-        defaultValue: queryInterface.sequelize.literal('gen_random_uuid()'),
+        defaultValue: queryInterface.sequelize.literal("gen_random_uuid()"),
         primaryKey: true,
         allowNull: false,
       },
@@ -15,24 +18,24 @@ module.exports = {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: 'pms_cycles',
-          key: 'id',
+          model: "pms_cycles",
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       employee_id: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: 'users',
-          key: 'id',
+          model: "users",
+          key: "id",
         },
       },
       employee_status: {
-        type: DataTypes.ENUM('added', 'removed'),
+        type: DataTypes.ENUM("added", "removed"),
         allowNull: false,
-        defaultValue: 'added',
+        defaultValue: "added",
       },
       created_by: {
         type: DataTypes.UUID,
@@ -41,7 +44,7 @@ module.exports = {
       created_at: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: queryInterface.sequelize.literal('CURRENT_TIMESTAMP'),
+        defaultValue: queryInterface.sequelize.literal("CURRENT_TIMESTAMP"),
       },
       updated_by: {
         type: DataTypes.UUID,
@@ -50,7 +53,7 @@ module.exports = {
       updated_at: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: queryInterface.sequelize.literal('CURRENT_TIMESTAMP'),
+        defaultValue: queryInterface.sequelize.literal("CURRENT_TIMESTAMP"),
       },
       deleted_at: {
         type: DataTypes.DATE,
@@ -59,15 +62,18 @@ module.exports = {
     });
 
     await queryInterface.addConstraint(tableName, {
-      fields: ['cycle_id', 'employee_id'],
-      type: 'unique',
-      name: 'unique_cycle_employee_pair',
+      fields: ["cycle_id", "employee_id"],
+      type: "unique",
+      name: "unique_cycle_employee_pair",
     });
   },
 
   async down(queryInterface: QueryInterface) {
-    await queryInterface.removeConstraint(tableName, 'unique_cycle_employee_pair');
-    await queryInterface.removeColumn(tableName, 'employee_status');
+    await queryInterface.removeConstraint(
+      tableName,
+      "unique_cycle_employee_pair"
+    );
+    await queryInterface.removeColumn(tableName, "employee_status");
     await queryInterface.dropTable(tableName);
   },
 };

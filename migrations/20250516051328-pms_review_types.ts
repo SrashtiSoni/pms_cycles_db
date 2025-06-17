@@ -4,6 +4,10 @@ const tableName = "pms_review_types";
 
 module.exports = {
   async up(queryInterface: QueryInterface) {
+    await queryInterface.sequelize.query(
+      `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`
+    );
+
     await queryInterface.createTable(tableName, {
       id: {
         type: DataTypes.UUID,

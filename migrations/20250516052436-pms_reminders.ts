@@ -1,10 +1,13 @@
-import { DataTypes, QueryInterface } from 'sequelize';
+import { DataTypes, QueryInterface } from "sequelize";
 
-const tableName = 'pms_reminders';
+const tableName = "pms_reminders";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface: QueryInterface) {
+    await queryInterface.sequelize.query(
+      `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`
+    );
     const columns = {
       id: {
         type: DataTypes.UUID,
@@ -15,20 +18,20 @@ module.exports = {
         type: DataTypes.UUID,
         allowNull: true,
         references: {
-          model: 'pms_review_types',
-          key: 'id',
+          model: "pms_review_types",
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       is_draft: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
       },
       reminder_type: {
-        type: DataTypes.ENUM('DEFAULT', 'CUSTOM'),
+        type: DataTypes.ENUM("DEFAULT", "CUSTOM"),
         allowNull: false,
-        defaultValue: 'DEFAULT',
+        defaultValue: "DEFAULT",
       },
       number_of_reminders: {
         type: DataTypes.INTEGER,
@@ -57,14 +60,17 @@ module.exports = {
 
     await queryInterface.createTable(tableName, columns);
     await queryInterface.addConstraint(tableName, {
-      fields: ['review_type_id'],
-      type: 'unique',
-      name: 'unique_pms_reminders_review_type_id',
+      fields: ["review_type_id"],
+      type: "unique",
+      name: "unique_pms_reminders_review_type_id",
     });
   },
 
   async down(queryInterface: QueryInterface) {
-    await queryInterface.removeConstraint(tableName, 'unique_pms_reminders_review_type_id');
+    await queryInterface.removeConstraint(
+      tableName,
+      "unique_pms_reminders_review_type_id"
+    );
     await queryInterface.dropTable(tableName);
   },
 };
